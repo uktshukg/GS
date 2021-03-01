@@ -10,6 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
+// base presneter every fragment presenter extneds this
 abstract class BasePresenter<S : UiState, P : UiState.Partial<S>, E: BaseViewEvent> protected constructor(
     // initial (or default) state of the state interface
     private val initialState: S,

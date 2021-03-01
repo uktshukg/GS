@@ -1,6 +1,6 @@
 package com.gs.base
 
-
+// all use case results will be wrapped inside this class
 sealed class Result<T> {
     data class Progress<T>(val value: Int = 0, val maxValue: Int = 100) : Result<T>()
     data class Success<T>(val value: T) : Result<T>()

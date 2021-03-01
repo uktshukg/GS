@@ -1,7 +1,7 @@
 package com.gs.base
 
 import io.reactivex.Observable
-
+// base user interface
 interface UserInterface<in S : UiState> {
     fun userIntents(): Observable<UserIntent>
 

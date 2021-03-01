@@ -16,7 +16,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-
+// base fragment each frag extends this
 abstract class BaseFragment<S : UiState, E : BaseViewEvent, I : UserIntent>(
     @LayoutRes contentLayoutId: Int = 0
 ) : Fragment(contentLayoutId),

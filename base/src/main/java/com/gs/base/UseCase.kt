@@ -4,7 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-
+// base class which every use case will extend
 interface UseCase<RequestT, ResponseT> {
     fun execute(req:RequestT): Observable<Result<ResponseT>>
 

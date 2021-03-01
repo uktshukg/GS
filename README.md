@@ -12,7 +12,7 @@ Dependency Injection: Dagger 2
 
 Dagger Modules: ActivityBindingModule, AndroidInjectionModule, NetworkModule, AppModule, AndroidSupportInjectionModule
 
-External Libs: com.jakewharton.rxrelay2:rxrelay:2.1.1
+External Libs: com.jakewharton.rxrelay2:rxrelay:2.1.1, retrofit 
 
 Gradle Modules: base.gradle and app.gradle
 

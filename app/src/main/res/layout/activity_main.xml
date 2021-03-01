@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.main.MainActivity">
 
-    <fragment
-        android:name="com.gs.weather.fragments.main_frag.MainFrag"
+    <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="kvpjffj"
-        android:id="@+id/lkdvnv"
+        android:id="@+id/container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

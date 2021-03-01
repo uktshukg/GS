@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.gs.base.BaseFragment
 import com.gs.base.UserIntent
@@ -42,8 +44,7 @@ class MainFrag :
             }
         }
         binding.goToFavourite.setOnClickListener {
-            val tran = fragmentManager?.beginTransaction()
-            tran?.add(FavoriteFrag.getInstance(), "FAVOURITE")?.commit()
+            findNavController().navigate(R.id.favFrag)
         }
     }
 

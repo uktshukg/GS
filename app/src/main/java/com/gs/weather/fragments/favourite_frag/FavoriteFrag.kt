@@ -53,7 +53,7 @@ class FavoriteFrag :
     }
 
     override fun render(state: FavouriteFragContract.State) {
-
+        adpater.submitList(state.list)
     }
 
 

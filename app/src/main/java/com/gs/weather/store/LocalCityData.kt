@@ -19,7 +19,8 @@ data class LocalCityData(
     @Embedded val main: Main,
     @Embedded val sys: Sys,
     val date:Long,
-    var readableDate: String
+    var readableDate: String,
+    var lastUpdated: String
 )
 
 

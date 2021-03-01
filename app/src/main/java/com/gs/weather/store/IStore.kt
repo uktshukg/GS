@@ -9,5 +9,5 @@ interface IStore {
     fun  getAllFavouriteCityData(): Observable<List<LocalCityData>>
     fun saveCityData(localCityData: LocalCityData):Completable
     fun updateFav(cityId: Int, isFavourite: Boolean): Completable
-    fun getFirstCity(): Single<LocalCityData>
+    fun getFirstCity(): Observable<LocalCityData>
 }

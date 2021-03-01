@@ -22,7 +22,7 @@ class StoreImpl @Inject constructor(private val weatherDataBaseDao: WeatherDataB
         return weatherDataBaseDao.updateFav(cityId, isFavourite)
     }
 
-    override fun getFirstCity(): Single<LocalCityData> {
+    override fun getFirstCity(): Observable<LocalCityData> {
         return weatherDataBaseDao.getFirstCity()
     }
 }

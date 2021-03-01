@@ -1,4 +1,4 @@
-package com.gs.weather.fragments.favourite_frag
+package com.gs.weather.fragments.favourite_frag.adapter
 
 import android.view.LayoutInflater
 import android.view.View

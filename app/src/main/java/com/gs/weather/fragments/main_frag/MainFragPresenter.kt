@@ -30,15 +30,13 @@ class MainFragPresenter @Inject constructor(
                         is Result.Success -> {
                             MainFragContract.PartialState.SetResult(it.value)
                         }
-
                         is Result.Failure -> {
                             emitViewEvent(MainFragContract.ViewEvent.ErrorToast)
                             MainFragContract.PartialState.ShowLoader(false)
                         }
                     }
                 },
-            intent<MainFragContract.Intent.Load>()
-                .switchMap { getCityData.execute(GetCityData.Request("")) }
+           getCityData.execute(GetCityData.Request(""))
                 .map {
                     when (it) {
                         is Result.Progress ->  MainFragContract.PartialState.ShowLoader(true)

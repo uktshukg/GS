@@ -1,4 +1,4 @@
-package com.gs.weather.fragments.main_frag
+package com.gs.weather.fragments.main_frag.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DiffUtil.ItemCallback

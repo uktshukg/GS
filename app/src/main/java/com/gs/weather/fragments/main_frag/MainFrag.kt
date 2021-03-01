@@ -13,13 +13,11 @@ import com.gs.base.BaseFragment
 import com.gs.base.UserIntent
 import com.gs.weather.R
 import com.gs.weather.databinding.FragmentBlankBinding
+import com.gs.weather.fragments.main_frag.adapter.WeatherListAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
-
+// frag responsible for showing individual city data
 class MainFrag :
     BaseFragment<MainFragContract.State, MainFragContract.ViewEvent, MainFragContract.Intent>(R.layout.fragment_blank) {
     private var isFavourite: Boolean = false
@@ -98,7 +96,8 @@ class MainFrag :
             binding.sysSunrise.text = "Sunrise  ${it.sys.sunrise}"
             binding.sysSunset.text = "Sunset  ${it.sys.sunset}"
             binding.name.text = "Place Name ${it.name}"
-            if (state.canSetFavourite) {
+            binding.lastUpdated.text = "Last Upadted ${it.lastUpdated}"
+            if (it.isFavourite) {
                 isFavourite = true
                 binding.favourite.text = getString(R.string.remove_fav)
             } else {

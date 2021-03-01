@@ -25,6 +25,6 @@ interface WeatherDataBaseDao {
     fun updateFav(cityId: Int, isFavourite: Boolean): Completable
 
     @Query("select * from LocalCityData limit 1")
-    fun getFirstCity(): Single<LocalCityData>
+    fun getFirstCity(): Observable<LocalCityData>
 
 }

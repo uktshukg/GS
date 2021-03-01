@@ -1,4 +1,4 @@
-Architecture employed : RxMVI, Single subscription model with single activity and navigation components.  
+Architecture employed : RxMVI + Clean achitecture, Single subscription model with single activity and navigation components.
 
 
 Provides Offline support using room data.

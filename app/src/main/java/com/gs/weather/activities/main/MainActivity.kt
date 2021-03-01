@@ -2,6 +2,7 @@ package com.gs.weather.activities.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.gs.weather.R
 import dagger.android.AndroidInjection
@@ -23,4 +24,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+    override fun reportFullyDrawn() {
+        super.reportFullyDrawn()
+        Log.e("utkarsh","inside")
+    }
 }

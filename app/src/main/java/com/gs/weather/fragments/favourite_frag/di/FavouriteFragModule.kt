@@ -1,12 +1,12 @@
-package com.gs.weather.fragments.main_frag.di
+package com.gs.weather.fragments.favourite_frag.di
 
 import android.content.Context
+import com.gs.base.Presenter
 import com.gs.weather.api.ApiClientImpl
 import com.gs.weather.api.IApiClient
-import com.gs.base.Presenter
-import com.gs.weather.fragments.main_frag.MainFrag
-import com.gs.weather.fragments.main_frag.MainFragContract
-import com.gs.weather.fragments.main_frag.MainFragPresenter
+import com.gs.weather.fragments.favourite_frag.FavoriteFrag
+import com.gs.weather.fragments.favourite_frag.FavouriteFragContract
+import com.gs.weather.fragments.favourite_frag.FavouriteFragPresenter
 import com.gs.weather.store.IStore
 import com.gs.weather.store.StoreImpl
 import com.gs.weather.store.WeatherDataBase
@@ -18,7 +18,7 @@ import dagger.Provides
 import javax.inject.Provider
 
 @Module
-abstract class MainFragModule {
+abstract class FavouriteFragModule {
 
     @Binds
     abstract fun server(server: ApiClientImpl): IApiClient
@@ -30,10 +30,9 @@ abstract class MainFragModule {
     companion object {
         @Provides
         @JvmStatic
-        fun initialState(): MainFragContract.State {
-           return MainFragContract.State()
+        fun initialState(): FavouriteFragContract.State {
+            return FavouriteFragContract.State()
         }
-
         @Provides
         @JvmStatic
         fun database(context: Context): WeatherDataBase {
@@ -51,8 +50,9 @@ abstract class MainFragModule {
         @Provides
         @JvmStatic
         fun presenter(
-            fragment: MainFrag,
-            presenterProviderMain: Provider<MainFragPresenter>
-        ): Presenter<MainFragContract.State, MainFragContract.ViewEvent> = fragment.createPresenter(presenterProviderMain)
+            fragment: FavoriteFrag,
+            presenterProviderMain: Provider<FavouriteFragPresenter>
+        ): Presenter<FavouriteFragContract.State, FavouriteFragContract.ViewEvent> =
+            fragment.createPresenter(presenterProviderMain)
     }
 }

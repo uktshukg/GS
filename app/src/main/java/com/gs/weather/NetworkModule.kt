@@ -24,7 +24,7 @@ class NetworkModule {
             val client =
                 OkHttpClient.Builder().addInterceptor(interceptor).build()
             return Retrofit.Builder()
-                .baseUrl("https://en478jh796m7w.x.pipedream.net/")
+                .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

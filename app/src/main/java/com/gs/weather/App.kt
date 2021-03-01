@@ -7,8 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.multidex.MultiDex
-import com.gs.weather.services.NotificationService
-import com.gs.weather.utilities.SharedPref
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -34,6 +32,7 @@ class App : Application(), HasAndroidInjector{
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
+
     }
 
 

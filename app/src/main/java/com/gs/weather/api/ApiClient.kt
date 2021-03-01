@@ -1,12 +1,12 @@
 package com.gs.weather.api
 
-import com.gs.weather.fragments.main_frag.models.StayDetails
-import io.reactivex.Completable
-import retrofit2.http.Body
-import retrofit2.http.POST
+import com.gs.weather.fragments.main_frag.models.CityData
+import io.reactivex.Single
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface ApiClient {
-    @POST("submit-session")
-    fun submitDurationDetails(@Body body: StayDetails): Completable
+    @GET("weather")
+    fun getCityData(@Query("q")cityname: String, @Query("appid")appId: String): Single<CityData>
 }

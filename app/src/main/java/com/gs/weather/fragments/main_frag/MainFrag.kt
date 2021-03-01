@@ -1,93 +1,99 @@
 package com.gs.weather.fragments.main_frag
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.EditText
+import androidx.recyclerview.widget.RecyclerView
 import com.gs.base.BaseFragment
 import com.gs.base.UserIntent
 import com.gs.weather.R
-import com.gs.weather.utilities.SharedPref
-import com.gs.weather.utilities.convertMILLISToStandard
+import com.gs.weather.databinding.FragmentBlankBinding
+import com.gs.weather.fragments.favourite_frag.FavoriteFrag
 import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 
 
 class MainFrag :
-        BaseFragment<MainFragContract.State, MainFragContract.ViewEvent, MainFragContract.Intent>(R.layout.fragment_blank) {
-    private var timerDisposable: Disposable? = null
-    private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
-    private var time: TextView? = null
-    private var scanSubject: PublishSubject<String> = PublishSubject.create()
+    BaseFragment<MainFragContract.State, MainFragContract.ViewEvent, MainFragContract.Intent>(R.layout.fragment_blank) {
+    private lateinit var weatherListAdapter: WeatherListAdapter
+    private lateinit var weatherDetailsList: RecyclerView
+    private lateinit var edTextCityName: EditText
+    private lateinit var btnSearch: Button
+    private var getCityData: PublishSubject<String?> = PublishSubject.create()
+    private var addFavouriteSubject: PublishSubject<Int> = PublishSubject.create()
     private var completeSession: PublishSubject<Pair<String, Float>> = PublishSubject.create()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        btnSearch = view.findViewById(R.id.btn_search)
+        edTextCityName = view.findViewById(R.id.et_search_term)
+        btnSearch.setOnClickListener {
+            getCityData.onNext(edTextCityName.text.toString())
+        }
+        weatherDetailsList = view.findViewById(R.id.list)
+        weatherListAdapter = WeatherListAdapter()
+        weatherDetailsList.adapter = weatherListAdapter
+        binding.favourite.setOnClickListener {
+            getCurrentState().localCityData?.let {
+                addFavouriteSubject.onNext(it.id)
+            }
+        }
+        binding.goToFavourite.setOnClickListener {
+            val tran = fragmentManager?.beginTransaction()
+            tran?.add(FavoriteFrag.getInstance(), "FAVOURITE")?.commit()
+        }
+    }
 
+    private var _binding: FragmentBlankBinding? = null
+    private val binding get() = _binding!!
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentBlankBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 
     override fun userIntents(): Observable<UserIntent> {
         return Observable.mergeArray(
-                Observable.just(MainFragContract.Intent.Load),
+            Observable.just(MainFragContract.Intent.Load),
 
-                scanSubject.map {
-                    MainFragContract.Intent.ScanData(it)
-                },
-                completeSession.map {
-                    MainFragContract.Intent.CompleteSession(it)
-                }
+            getCityData.map {
+                MainFragContract.Intent.GetCityData(it)
+            },
+            completeSession.map {
+                MainFragContract.Intent.CompleteSession(it)
+            },
+            addFavouriteSubject.map {
+                MainFragContract.Intent.AddFavourite(it)
+            }
         )
     }
 
+
     override fun render(state: MainFragContract.State) {
+        state.localCityData?.let {
+            weatherListAdapter.submitList(it.weather)
+            binding.latitudeTv.text = "Latitude ${it.coord.lat}"
+            binding.longitudeTv.text = "Longitude ${it.coord.lon}"
+            binding.temp.text = "Temp ${it.main.temp}"
 
-    }
-
-
-    override fun onPause() {
-        timerDisposable?.dispose()
-        timerDisposable = null
-        super.onPause()
-    }
-
-    override fun handleViewEvent(event: MainFragContract.ViewEvent) {
-        when (event) {
-            MainFragContract.ViewEvent.ServerErrorToast -> showErrorToast()
-            MainFragContract.ViewEvent.ResumeTimer -> startTimer()
-            MainFragContract.ViewEvent.SubmitData -> showSubmitToast()
         }
     }
 
-    private fun startTimer() {
-        time?.let { tv ->
-            val startTime =
-                    SharedPref.getLong(context, context!!.getString(R.string.start_time))
-            if (timerDisposable == null) {
-                timerDisposable =
-                        Observable.interval(1, TimeUnit.SECONDS).observeOn(schedulerProvider)
-                                .subscribe {
-                                    tv.text =
-                                            convertMILLISToStandard(System.currentTimeMillis() - startTime)
-                                }
-            }
+
+    override fun handleViewEvent(event: MainFragContract.ViewEvent) {
+        when (event) {
         }
     }
 
     override fun onDestroyView() {
-        compositeDisposable.clear()
         super.onDestroyView()
-    }
-
-    private fun showErrorToast() {
-        Toast.makeText(context!!, "Something happened worng", Toast.LENGTH_LONG).show()
-    }
-
-    private fun showSubmitToast() {
-        Toast.makeText(context!!, "Submitting Data", Toast.LENGTH_LONG).show()
+        _binding = null
     }
 }

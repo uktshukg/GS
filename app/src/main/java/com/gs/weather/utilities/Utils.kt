@@ -11,5 +11,5 @@ fun isInternetAvailable(): Observable<Boolean> {
         } catch (e: Exception) {
             false
         }
-    }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }.subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
 }

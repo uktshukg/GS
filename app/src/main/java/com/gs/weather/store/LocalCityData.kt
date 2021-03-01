@@ -17,6 +17,9 @@ data class LocalCityData(
     @Embedded val clouds: Clouds,
     @Embedded val coord: Coord,
     @Embedded val main: Main,
+    @Embedded val sys: Sys,
+    val date:Long,
+    var readableDate: String
 )
 
 

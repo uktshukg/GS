@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">GS</string>
     <string name="start_time">ojnv</string>
+    <string name="favourite_cities">Favourite Cities</string>
+    <string name="add_favourite">Add Favourite</string>
+    <string name="go_to_favourites">Go to Favourites</string>
+    <string name="remove_fav">Remove favourite</string>
+    <string name="add_fav">Add favourite</string>
 </resources>

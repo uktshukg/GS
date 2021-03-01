@@ -27,10 +27,9 @@ class FavouriteFragPresenter @Inject constructor(
                         is Result.Success -> {
                             FavouriteFragContract.PartialState.SetResult(it.value)
                         }
-
                         is Result.Failure -> {
-                            emitViewEvent(FavouriteFragContract.ViewEvent.ServerErrorToast)
-                            FavouriteFragContract.PartialState.ErrorState
+                            emitViewEvent(FavouriteFragContract.ViewEvent.ErrorToast)
+                            FavouriteFragContract.PartialState.NoChange
 
                         }
 
@@ -47,7 +46,6 @@ class FavouriteFragPresenter @Inject constructor(
             is FavouriteFragContract.PartialState.SetResult -> currentState.copy(
                 list = partialState.list
             )
-            FavouriteFragContract.PartialState.ErrorState -> currentState
         }
     }
 }

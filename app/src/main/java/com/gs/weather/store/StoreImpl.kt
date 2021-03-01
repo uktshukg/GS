@@ -2,6 +2,7 @@ package com.gs.weather.store
 
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class StoreImpl @Inject constructor(private val weatherDataBaseDao: WeatherDataBaseDao) : IStore {
@@ -17,7 +18,11 @@ class StoreImpl @Inject constructor(private val weatherDataBaseDao: WeatherDataB
         return weatherDataBaseDao.saveCityData(localCityData)
     }
 
-    override fun updateFav(cityId: Int): Completable {
-        return weatherDataBaseDao.updateFav(cityId)
+    override fun updateFav(cityId: Int, isFavourite: Boolean): Completable {
+        return weatherDataBaseDao.updateFav(cityId, isFavourite)
+    }
+
+    override fun getFirstCity(): Single<LocalCityData> {
+        return weatherDataBaseDao.getFirstCity()
     }
 }

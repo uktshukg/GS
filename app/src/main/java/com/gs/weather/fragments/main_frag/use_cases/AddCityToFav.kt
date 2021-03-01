@@ -1,32 +1,29 @@
 package com.gs.weather.fragments.main_frag.use_cases
 
-import android.content.Context
 import com.gs.base.Result
 import com.gs.base.UseCase
-import com.gs.weather.api.IApiClient
 import com.gs.weather.store.IStore
-import com.gs.weather.store.LocalCityData
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.security.InvalidParameterException
 import javax.inject.Inject
 
 class AddCityToFav @Inject constructor(
-    private val apiClientImpl: IApiClient,
-    private val context: Context,
     private val store: IStore
 ) :
-    UseCase<AddCityToFav.Request, Unit> {
+    UseCase<AddCityToFav.Request, Boolean> {
 
-    override fun execute(req: Request): Observable<Result<Unit>> {
+    override fun execute(req: Request): Observable<Result<Boolean>> {
 
-        return UseCase.wrapCompletable(
+        return UseCase.wrapSingle(
             store.updateFav(
-                req.cityId
-            ))
+                req.pair.first,
+                req.pair.second
+            ).andThen(Single.just(req.pair.second))
+        )
 
     }
 
-    data class Request(val cityId: Int)
+    // pair of id and isFavourite
+    data class Request(val pair: Pair<Int, Boolean>)
 
 }

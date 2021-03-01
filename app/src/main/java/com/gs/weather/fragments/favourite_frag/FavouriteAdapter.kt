@@ -25,23 +25,18 @@ class FavouriteAdapter :
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
-
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
         return FavouriteViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_favourite, parent, false)
         )
-
     }
 
     override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-
 }
